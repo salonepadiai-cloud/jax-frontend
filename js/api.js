@@ -1,17 +1,28 @@
 // ======================================
-// J.A.X API
+// File: js/api.js
 // ======================================
 
 const API = "https://jax-backend-b3pv.onrender.com";
 
+// ==========================
 // Health Check
-export async function checkHealth() {
+// ==========================
+async function checkHealth() {
+
     const response = await fetch(`${API}/api/health`);
+
+    if (!response.ok) {
+        throw new Error("Backend is offline.");
+    }
+
     return await response.json();
+
 }
 
-// Chat
-export async function sendMessage(message) {
+// ==========================
+// Send Chat
+// ==========================
+async function sendMessage(message) {
 
     const response = await fetch(`${API}/api/chat`, {
         method: "POST",
@@ -23,11 +34,18 @@ export async function sendMessage(message) {
         })
     });
 
-    const data = await response.json();
+    let data;
+
+    try {
+        data = await response.json();
+    } catch {
+        throw new Error("Invalid response from backend.");
+    }
 
     if (!response.ok) {
         throw new Error(data.message || data.error || "Backend request failed.");
     }
 
     return data;
+
 }
