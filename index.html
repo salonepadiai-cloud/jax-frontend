@@ -1,16 +1,146 @@
-<!-- ================= Scripts ================= -->
+<!DOCTYPE html>
+<html lang="en">
 
-<script src="js/api.js"></script>
+<head>
 
-<script src="js/chat.js"></script>
+    <meta charset="UTF-8">
 
-<script src="js/storage.js"></script>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<script src="js/voice.js"></script>
+    <meta name="theme-color" content="#00f2fe">
 
-<script src="js/ui.js"></script>
+    <meta name="mobile-web-app-capable" content="yes">
 
-<script src="js/app.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>J.A.X</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topbar">
+
+        <div class="logo">
+            J.A.X
+        </div>
+
+        <div class="status">
+
+            <span class="dot"></span>
+
+            <span>CORE ONLINE</span>
+
+        </div>
+
+        <button id="profileBtn" class="profile-btn">
+            👤
+        </button>
+
+    </header>
+
+    <!-- ================= CHAT ================= -->
+
+    <main id="chat" class="chat-area">
+
+        <div class="bot-message">
+
+            <h3>🤖 J.A.X</h3>
+
+            <p>
+                Hello Johnny.<br>
+                I'm online and ready.
+            </p>
+
+        </div>
+
+    </main>
+
+    <!-- ================= Typing ================= -->
+
+    <div id="typing" class="typing hidden">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    <!-- ================= Input ================= -->
+
+    <footer class="input-bar">
+
+        <textarea
+            id="message"
+            placeholder="Message J.A.X..."
+            rows="1"></textarea>
+
+        <button id="send">
+            ➤
+        </button>
+
+    </footer>
+
+    <!-- ================= Drawer ================= -->
+
+    <div id="drawer" class="drawer">
+
+        <div class="drawer-content">
+
+            <h2>Johnny TEC</h2>
+
+            <p>@johnnytec.dev</p>
+
+            <hr>
+
+            <div class="card">
+
+                <h3>Backend</h3>
+
+                <p id="backendStatus">
+                    Checking...
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>AI Engine</h3>
+
+                <p>Groq AI</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Voice Engine</h3>
+
+                <p>ElevenLabs</p>
+
+            </div>
+
+            <button id="closeDrawer">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ================= JavaScript ================= -->
+
+    <script src="js/api.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
 
 </body>
+
 </html>
