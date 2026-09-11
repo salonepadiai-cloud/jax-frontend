@@ -1,5 +1,5 @@
 // =====================================
-// J.A.X APP
+// J.A.X Main App
 // =====================================
 
 const chat = document.getElementById("chat");
@@ -8,56 +8,37 @@ const sendButton = document.getElementById("send");
 const typing = document.getElementById("typing");
 const backendStatus = document.getElementById("backendStatus");
 
-
-// =====================================
-// Check Backend
-// =====================================
-
+// Check backend
 async function checkBackend() {
+    try {
+        const data = await getBackendStatus();
 
-    const data = await getBackendStatus();
-
-    if (data.success) {
-
-        backendStatus.textContent = "🟢 Backend Online";
-
-    } else {
-
+        backendStatus.textContent = data.success
+            ? "🟢 Backend Online"
+            : "🔴 Backend Offline";
+    } catch (e) {
         backendStatus.textContent = "🔴 Backend Offline";
-
     }
-
 }
 
-
-// =====================================
-// Add Message
-// =====================================
-
-function addMessage(text, sender) {
+// Add message to chat
+function addMessage(text, type) {
 
     const div = document.createElement("div");
 
     div.className =
-        sender === "user"
-        ? "user-message"
-        : "bot-message";
+        type === "user"
+            ? "user-message"
+            : "bot-message";
 
-    div.innerHTML = `
-        <p>${text}</p>
-    `;
+    div.innerHTML = `<p>${text}</p>`;
 
     chat.appendChild(div);
 
     chat.scrollTop = chat.scrollHeight;
-
 }
 
-
-// =====================================
-// Send Message
-// =====================================
-
+// Send chat
 async function sendChat() {
 
     const message = messageInput.value.trim();
@@ -72,57 +53,40 @@ async function sendChat() {
 
     try {
 
-        const data = await sendMessage(message);
+        const result = await sendMessage(message);
 
         typing.classList.add("hidden");
 
-        addMessage(data.reply, "bot");
+        addMessage(result.reply, "bot");
 
-    }
-
-    catch (err) {
+    } catch (error) {
 
         typing.classList.add("hidden");
 
         addMessage(
-            "⚠️ Unable to connect to J.A.X Backend.",
+            "Unable to connect to J.A.X.",
             "bot"
         );
 
-        console.error(err);
+        console.error(error);
 
     }
-
 }
 
-
-// =====================================
 // Events
-// =====================================
+sendButton.onclick = sendChat;
 
-sendButton.addEventListener(
-    "click",
-    sendChat
-);
+messageInput.addEventListener("keydown", (e) => {
 
-messageInput.addEventListener(
-    "keydown",
-    (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
 
-        if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
 
-            e.preventDefault();
-
-            sendChat();
-
-        }
+        sendChat();
 
     }
-);
 
+});
 
-// =====================================
-// Startup
-// =====================================
-
+// Start app
 checkBackend();
